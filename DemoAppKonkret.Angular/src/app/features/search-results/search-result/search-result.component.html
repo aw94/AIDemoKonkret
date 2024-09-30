@@ -1,0 +1,24 @@
+
+  <div class="p-card p-4">
+    <div class="p-card-header">
+      <h3>{{ title }}</h3>
+    </div>
+    <div class="p-card-body">
+      <div class="p-grid">
+        <!-- Company -->
+        <div class="p-col-12">
+          <strong>Kund:</strong> {{ company }}
+        </div>
+        <!-- Location -->
+        <div class="p-col-6">
+          <i class="pi pi-map-marker"></i> {{ location }}
+        </div>
+      </div>
+    </div>
+    <div class="p-card-footer p-text-right">
+      <button pButton label="Show more" (click)="navigateToDetails()" icon="pi pi-info-circle" class="
+      p-button-outlined
+      p-button-secondary
+       cursor-pointer"></button>
+    </div>
+  </div>

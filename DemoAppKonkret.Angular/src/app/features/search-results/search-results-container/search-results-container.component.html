@@ -1,0 +1,40 @@
+<div class="flex justify-content-center h-screen w-full">
+  @if(!isLoading){
+
+@if (jobListings$ | async; as jobResultsWrapper){
+  @if(jobResultsWrapper.searchResults.length > 0)
+  {
+  <div class="p-grid p-fluid p-5 w-60rem">
+    <!-- Search Header -->
+    <div class="p-col-12">
+      <h2 class="p-text-center">Search results</h2>
+    </div>
+
+    <!-- Search Result Items -->
+    <div *ngFor="let result of jobResultsWrapper.searchResults" class="col-9 md-4 gap-2">
+      <app-search-result [title]="result.title" [company]="result.company" [location]="result.location" [id]="result.id">
+      </app-search-result>
+    </div>
+    <p-paginator
+    (onPageChange)="onPageChange($event)"
+    [first]="first"
+    [rows]="rows"
+    [totalRecords]="jobResultsWrapper.totalPages * 20"/>
+
+  </div>
+    }
+    @else {
+
+    <!-- No Results -->
+    <div *ngIf="!jobResultsWrapper.searchResults.length" class="col-12 p-text-center">
+      <p>No results found</p>
+    </div>
+    }
+  }
+  }
+  @else {
+    <div class="flex justify-content-center align-items-center">
+    <p-progressSpinner class="d-block mx-auto"></p-progressSpinner>
+    </div>
+  }
+</div>

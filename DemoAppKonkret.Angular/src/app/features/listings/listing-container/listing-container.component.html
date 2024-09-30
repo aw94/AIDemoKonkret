@@ -1,0 +1,79 @@
+@if (listing) {
+  <div class="grid col-2 justify-content-center w-full px-6">
+    @if (this.recommendedEmployees$ | async; as recommendedEmployees) {
+      <div class="max-w-29rem w-29rem flex flex-column gap-2">
+        <p-card header="Matchningar">
+          <p>{{ recommendedEmployees.length }} CV:n matchar alla eller vissa kriterier.</p>
+        </p-card>
+
+        <ng-container *ngFor="let employee of recommendedEmployees">
+          <app-matched-employee [documentName]="employee.documentName"
+                                [s3Location]="employee.location"
+                                [textReferences]="employee.metadata"
+                                [employeeName]="employee.employeeName"
+                                [languages]="employee.languages"
+                                [skills]="employee.skills"
+                                [scoreReasoning]="employee?.reasoning ?? ''"
+                                [score]="employee.score"
+          ></app-matched-employee>
+        </ng-container>
+
+      </div>
+
+    }
+
+    @else {
+      <div class="flex flex-column">
+        <h2 class="text-center">Hämtar matchningar..
+        <span class="timer">
+        {{timerSignal()}}
+        </span>
+        </h2>
+        <div class="block relative">
+          <p-skeleton width="29rem" height="25rem" styleClass="mb-2" />
+        </div>
+      </div>
+    }
+
+    <div class="p-m-4 mx-auto"  style="width: 60rem;">
+      <p-card class="p-shadow-3" header="Job Listing" subheader="{{ listing.title }}">
+
+        <!-- Title and Role -->
+        <div class="flex flex-column align-items-center justify-content-center">
+          <h2>{{ listing.title }}</h2>
+          <p class="text-secondary">{{ listing.role }}</p>
+        </div>
+
+        <!-- Location and Assignment Period -->
+        <div class="flex flex-row justify-content-between p-mt-4 p-mb-4">
+          <div>
+            <p><i class="pi pi-map-marker p-mr-2"></i> {{ listing.location }}</p>
+          </div>
+          <div>
+            <p><i class="pi pi-calendar p-mr-2"></i> Assignment Period: {{ listing.assignmentPeriod | date:'longDate' }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <span>Description</span>
+        <p [innerHTML]="listing.descriptionHtml"></p>
+
+        <!-- Skills Tags -->
+        <div class="skill-tag-container">
+          <p class="mb-2">Skills</p>
+          <div class="flex flex-wrap gap-2">
+            <ng-container *ngFor="let skill of listing.skills">
+              <p-tag value="{{ skill }}" severity="info"></p-tag>
+            </ng-container>
+          </div>
+        </div>
+      </p-card>
+    </div>
+  </div>
+} @else {
+  <div class="flex justify-content-center align-items-center">
+    <p-progressSpinner class="d-block mx-auto"></p-progressSpinner>
+  </div>
+
+}

@@ -1,0 +1,41 @@
+<!-- Chat window -->
+<div class="flex flex-column h-full">
+    <p-card class="p-shadow-3 h-full" header="Chat" subheader="Chat with AI" [style]="{height:'100%'}">
+  <div class="h-full w-full flex flex-column justify-content-center align-items-center">
+      <div class="w-full flex flex-column align-items-center h-full justify-content-center bg-black-alpha-20 pb-6 px-4">
+        <p-scrollPanel class="w-full" [style]="{ width: '100%', height: '20rem' }">
+            <ng-container *ngFor="let message of messages">
+              <div class="chat-window">
+                <img src="{{ message.user.avatar }}" alt="avatar" class="p-m-2 avatar">
+                <div>
+                <p class="p-text-bold">{{ message.user.name }}, {{message.date | date: 'MMM d, y'}}</p>
+                <div class="chat-bubble" [ngClass]="{'chat-bubble-user': message.user.name === 'user',
+                'chat-bubble-bot': message.user.name === 'agent'}">
+                  <p>{{ message.text }}</p>
+                  <div *ngIf="message.citations && message.citations.length > 0" class="flex flex-row align-items-center gap-1">
+                  <p>Citations:</p>
+                  <ng-container *ngFor="let citation of message.citations; let i = index">
+                    <a [href]="citation.url" [pTooltip]="'Employee name: ' + citation.documentName + '\n \n' + citation.textReference" target="_blank">[{{i+1}}]</a>
+                  </ng-container>
+                  </div>
+                  </div>
+                  </div>
+              </div>
+            </ng-container>
+        </p-scrollPanel>
+        </div>
+  </div>
+      <ng-template pTemplate="footer">
+        <div class="flex flex-column h-full">
+            <p [style.visibility]="awaitingReply ? '': 'hidden'" >{{awaitingReplyText()}}</p>
+        <div class="flex flex-row">
+        <input [disabled]="awaitingReply" type="text" pInputText [(ngModel)]="value" class="flex-1 chat-input-box"/>
+        <button [disabled]="awaitingReply" class="" pButton type="button" (click)="sendMessage(value)">
+          <i class="pi pi-send"></i>
+        </button>
+        </div>
+        </div>
+      </ng-template>
+
+    </p-card>
+</div>

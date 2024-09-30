@@ -1,0 +1,45 @@
+.chat-window {
+  display: grid;
+  grid-template-columns: 0.4fr 4fr;
+  align-items: center;
+}
+
+
+.chat-bubble-user {
+  background-color: #164b9a;
+}
+
+.chat-bubble-bot {
+  background-color: #5d1785;
+}
+
+.chat-bubble {
+  padding: 10px;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  max-width: 80%;
+}
+
+:host ::ng-deep .p-card-body {
+ height: 100%;
+}
+
+
+ ::ng-deep div.p-tooltip-text {
+  width: 25rem;
+}
+
+.avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
+.chat-input-box {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+button {
+  border-radius: 0;
+}

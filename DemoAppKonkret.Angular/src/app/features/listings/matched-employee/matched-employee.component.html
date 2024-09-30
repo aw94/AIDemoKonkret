@@ -1,0 +1,28 @@
+<p-card [header]="employeeName">
+  <div class="flex flex-column">
+    <p>{{ scoreReasoning }}</p>
+  <!-- languages -->
+  <div class="border-round-2xl">
+    <p class="mb-2">Languages</p>
+    <div class="flex flex-wrap gap-2">
+      <ng-container *ngFor="let language of languages">
+        <p-tag value="{{ language }}" severity="info"></p-tag>
+      </ng-container>
+    </div>
+  </div>
+
+
+  <div class="border-round-2xl">
+    <p class="mb-2">Skills</p>
+    <div class="flex flex-wrap gap-2">
+      <ng-container *ngFor="let skill of skills">
+        <p-tag value="{{ skill }}" severity="info"></p-tag>
+      </ng-container>
+    </div>
+  </div>
+  <p-progressBar [value]="score*100 | number:'1.0-0'" class="mt-4"/>
+  <a class="mt-4 text-right" [href]="s3Location" target="_blank">
+    <i class="pi pi-file p-mr-2"></i>
+    Show CV</a>
+  </div>
+</p-card>
